@@ -6,11 +6,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link 
-        href=
-            "https://fonts.googleapis.com/css2?family=Roboto:
-            ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap"  
-        rel=
-            "stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap"  
+        rel="stylesheet"
+        type="text/css">
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta charset="UTF-8" />
     <title>Batepapo UOL</title>
@@ -18,18 +16,19 @@
                         "./assets/icon.png" 
                         type = "image/x-icon">
 </head>
-<body>
+<body onload="userName()">
     <div class="chat_container">   
         <header>
             <img class="logo" src="./assets/logo.png">
             <img class="people" src="./assets/people.png">
         </header>
-        <middle>    </middle>
+        <main class="main_body"></main>
         <footer> 
             <input type="text" name="fname" placeholder="Escreva aqui...">
             <img class="plane" src="./assets/Vector.png">    
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./scripts/scripts.js"></script>
 </body>
 </html>

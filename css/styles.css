@@ -14,13 +14,6 @@ img{
     cursor: pointer;
 }
 
-.chat_container{
-    position: fixed;
-    width: 375px;
-    height: 900%;
-    background-color: #F3F3F3;
-
-}
 
 header, footer{
     background-color: #FFFFFF;
@@ -87,4 +80,65 @@ input:focus{
 
 input:focus::placeholder {
     color: transparent;
-  }
+}
+
+main{
+    width: 375px;
+    height: 725px;
+    font-size: 14px;
+    margin-top: 80px;
+    color: #000000;
+    display: block;
+    overflow: scroll;
+}
+
+.chat_container{
+    position: fixed;
+    width: 375px;
+    height: 900px;
+    background-color: #F3F3F3;
+
+}
+
+.time{
+    color: #AAAAAA;
+}
+
+.from, .to{
+    font-weight: 700;
+}
+
+.status_message, 
+.public_message,
+.private_message{
+    display: flex;
+    margin-bottom: 4px;
+    min-height: 40px;
+    align-items: center;
+}
+
+.status_message{
+    background-color: #DCDCDC;
+}
+
+.public_message{
+    background-color: #FFFFFF;
+    
+}
+
+.private_message{
+    background-color: #FFDEDE;
+}
+
+.message{
+
+    text-align: justify;
+    margin-left: 5px;
+    margin-right: 9px;
+}
+
+.text{
+    margin-left: 3px;
+    line-height: 20px;
+
+}
