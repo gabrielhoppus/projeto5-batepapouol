@@ -1,6 +1,7 @@
 let messages = [];
 let tempArray = [];
 let userName = "";
+let reponse = null
 const messageList = document.querySelector('.main_body');
 
 function registerName(){
@@ -18,13 +19,13 @@ function registerName(){
 }
 
 function getMessage(){
-    const promisseMessage = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-    promisseMessage.then(promisseOK);
-    promisseMessage.catch(promisseError)
+    const promisseChat = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+    promisseChat.then(promisseOK);
+    promisseChat.catch(promisseError)
     setInterval(() => {
-        const promisseMessage = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-        promisseMessage.then(checkNew);
-        promisseMessage.catch(promisseError)
+        const promisseChat = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
+        promisseChat.then(checkNew);
+        promisseChat.catch(promisseError)
     }, 3000);
 }
 
@@ -41,8 +42,7 @@ function promisseOK(response){
 function renderMessages(){
     messageList.innerHTML = '';
     for (let i = 0; i < messages.length; i++){
-        let message = messages[i];
-        
+        let message = messages[i];        
         if(message.type === "status"){
             messageList.innerHTML += `
             <div class="status_message">
@@ -79,8 +79,7 @@ function renderMessages(){
                 </div>
             `
             }
-            }
-            
+            }            
         }
     }
 
@@ -105,5 +104,27 @@ function arrayEquals(a, b) {
 
 function scrollLast(){
     messageList.lastElementChild.scrollIntoView()
-
 }
+
+
+function sendMessage(){
+    const message = document.querySelector("input").value;
+    const msg ={
+        from: userName,
+        to: "Todos",
+        text: message,
+        type: "message" // ou "private_message" para o bônus
+    };
+    const promisseMessage = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', msg);
+    promisseMessage.then(promisseMessageOK)
+    promisseMessage.catch(promisseMessageError)
+}
+
+function promisseMessageOK(){
+    getMessage();
+    document.querySelector("input").value = ""
+}
+
+function promisseMessageError(){
+    window.location.reload()
+}   
