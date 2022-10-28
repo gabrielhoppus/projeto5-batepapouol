@@ -5,17 +5,38 @@ let reponse = null
 const messageList = document.querySelector('.main_body');
 
 function registerName(){
-    userName = prompt("Qual é seu nome de usuário?");
+    userName = document.querySelector(".login_input").value;
     const data ={
         name: userName
     };
     const promisseName = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', data);
     promisseName.then(getMessage);
-    promisseName.catch(registerName)
+    promisseName.catch(promisseNameError)
 
+    const login = document.querySelector(".login_input")
+    const button = document.querySelector("button")
+    const loading = document.querySelector(".loading_gif")
+    const loginScreen = document.querySelector(".login_screen")
+    const chat = document.querySelector(".chat_container")
+
+    login.classList.add("hidden")
+    button.classList.add("hidden")
+    loading.classList.remove("hidden")
+
+    setTimeout(() =>{
+        loginScreen.classList.add("hidden")
+        chat.classList.remove("hidden")
+        loading.classList.add("hidden")
+    },3000)
+    
     setInterval(() => {
         const promisseName = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', data);
         }, 5000);
+}
+
+function promisseNameError(){
+    alert("Esse nome já está sendo usado")
+    window.location.reload()
 }
 
 function getMessage(){
@@ -38,6 +59,7 @@ function promisseOK(response){
     renderMessages();
     scrollLast();
 }
+
 
 function renderMessages(){
     messageList.innerHTML = '';
@@ -108,7 +130,7 @@ function scrollLast(){
 
 
 function sendMessage(){
-    const message = document.querySelector("input").value;
+    const message = document.querySelector("input_message").value;
     const msg ={
         from: userName,
         to: "Todos",
@@ -128,3 +150,12 @@ function promisseMessageOK(){
 function promisseMessageError(){
     window.location.reload()
 }   
+
+function sendEnter(){
+const input = document.querySelector("input")
+input.addEventListener("keypress", function(event){
+    if (event.key === "Enter"){
+        document.querySelector(".plane").click();
+    }
+})
+}

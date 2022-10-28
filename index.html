@@ -16,15 +16,29 @@
                         "./assets/icon.png" 
                         type = "image/x-icon">
 </head>
-<body onload="registerName()">
-    <div class="chat_container">   
+<body onload="sendEnter()">
+    <div class="login_screen">
+        <img class="login_logo" src="./assets/logo.png">
+        <input class="login_input" type="text" name="fname" placeholder="Digite seu nome">
+        <button onclick="registerName()" type="button">Entrar</button>
+        <img class="loading_gif hidden" src="./assets/loading.gif">
+    </div>
+    <div class="user_list_container">
+        <div class="black_screen"></div>
+        <div class="white_screen">
+            <p>Escolha um contato </br> para enviar mensagem:</p>
+            <div class=""></div>
+            <p>Escolha um Escolha a visibilidade:</p>
+        </div>
+    </div>
+    <div class="chat_container hidden">   
         <header>
             <img class="logo" src="./assets/logo.png">
             <img class="people" src="./assets/people.png">
         </header>
         <main class="main_body"></main>
         <footer> 
-            <input type="text" name="fname" placeholder="Escreva aqui...">
+            <input class="input_message" type="text" name="fname" placeholder="Escreva aqui...">
             <img onclick="sendMessage()" class="plane" src="./assets/Vector.png">    
         </footer>
     </div>
