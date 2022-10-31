@@ -22,24 +22,39 @@
         <input class="login_input" type="text" name="fname" placeholder="Digite seu nome">
         <button onclick="registerName()" type="button">Entrar</button>
         <img class="loading_gif hidden" src="./assets/loading.gif">
-    </div>
-    <div class="user_list_container">
-        <div class="black_screen"></div>
-        <div class="white_screen">
-            <p>Escolha um contato </br> para enviar mensagem:</p>
-            <div class=""></div>
-            <p>Escolha um Escolha a visibilidade:</p>
-        </div>
-    </div>
+    </div>   
     <div class="chat_container hidden">   
         <header>
             <img class="logo" src="./assets/logo.png">
-            <img class="people" src="./assets/people.png">
+            <img onclick="showUsers()" class="people" src="./assets/people.png">
         </header>
+        <div class="user_list_container hidden">
+            <div onclick="hideUsers()" class="black_screen"></div>
+            <div class="white_screen">
+                <p>Escolha a visibilidade:</p>
+                <div class="message_type">
+                    <div onclick="selectMessage(this)" class="public">
+                        <img src="./assets/lock-open.png">
+                        <p class="message_visibility">Público</p>
+                        <img class="checkmark" src="./assets/checkmark.png">
+                    </div>
+                    <div onclick="selectMessage(this)" class="private">
+                        <img src="./assets/lock-closed.png">
+                        <p class="message_visibility">Reservadamente</p>
+                        <img class="checkmark" src="./assets/checkmark.png">
+                    </div>
+                </div>
+                <p>Escolha um contato </br> para enviar mensagem:</p>
+                <div class="chat_users"></div>
+            </div>
+        </div>  
         <main class="main_body"></main>
-        <footer> 
-            <input class="input_message" type="text" name="fname" placeholder="Escreva aqui...">
-            <img onclick="sendMessage()" class="plane" src="./assets/Vector.png">    
+        <footer>
+            <div class="input_box">
+                <input class="input_message" type="text" name="fname" placeholder="Escreva aqui...">
+                <div class="span_message"></div>
+            </div> 
+            <img onclick="sendMessage()" class="plane" src="./assets/Vector.png">
         </footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

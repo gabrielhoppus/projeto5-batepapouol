@@ -15,14 +15,12 @@ img{
     cursor: pointer;
 }
 
-
 header, footer{
     background-color: #FFFFFF;
     width: 375px;
     height: 80px;
     display: flex;
     justify-content: space-between;
-
 }
 
 header{
@@ -66,20 +64,35 @@ footer{
     margin-left: 17px;
     font-weight: 400;
     font-size: 18px;
-    font-style: italic;
-
+    margin-bottom: 10px;
 }
 
-.input_message:focus{
+.input_box{
+    display: block;
+    font-size: 14px;
+    font-weight: 300;
+    color: #505050;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.span_message span{
+    margin-left: 17px;
+    padding-left: 2px;
+}
+
+
+input:focus{
     outline: none;
     font-style: normal;
 }
 
-.input_message::placeholder{
+input::placeholder{
     color: #000000;
+    font-style: italic;
 }
 
-.input_message:focus::placeholder {
+input:focus::placeholder {
     color: transparent;
 }
 
@@ -174,7 +187,7 @@ main{
 }
 
 .hidden{
-    display: none;
+    visibility: hidden;
 }
 
 .login_screen{
@@ -182,7 +195,7 @@ main{
     display: block;
     background-color: #FFFFFF;
     height: 900px;
-    z-index: 2;
+    z-index: 1;
     position: absolute;
 }
 
@@ -244,6 +257,7 @@ button{
     display: flex;
     z-index: 3;
     position: absolute;
+    overflow: scroll;
 }
 
 .black_screen{
@@ -259,3 +273,82 @@ button{
     background-color: #FFFFFF;
 }
 
+.white_screen p{
+    height: 86px;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-left: 45px;
+    margin-right: 45px;
+}
+
+.chat_users,
+.message_type{
+    margin-left: 17px;
+    padding-bottom: 25px;
+}
+
+.chat_users img{
+    width: 25px;
+    height: 25px;
+    margin-top: 12px;
+}
+
+.chat_users h1{
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    padding-top: 18px;
+    margin-left: 7px;
+}
+
+.chat_user_container,
+.public,
+.private{
+    display: flex;
+}
+
+.public p,
+.private p{
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    margin-left: 7px;
+    height: 0;
+    padding-top: 27px;
+}
+
+.message_type img{
+    width: 25px;
+    height: 25px;
+    margin-top: 12px;
+}
+
+.chat_user_container .checkmark,
+.message_type .checkmark{
+    width: 9px;
+    height: 7px;
+    position: absolute;
+    margin-left: 200px;
+    padding-top: 10px;
+    display: none;
+}
+
+
+.selected_user>.checkmark,
+.selected_message>.checkmark{
+    display:block
+}
+
+.message_type button{
+    width: 259px;
+    height: 30px;
+    margin-left: -17px;
+    margin-bottom: -50px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+}

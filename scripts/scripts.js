@@ -1,8 +1,10 @@
 let messages = [];
 let tempArray = [];
 let userName = "";
-let reponse = null
-const messageList = document.querySelector('.main_body');
+let users = [];
+let messageList = document.querySelector('.main_body');
+let selectedName = ""
+let type = ""
 
 function registerName(){
     userName = document.querySelector(".login_input").value;
@@ -60,6 +62,91 @@ function promisseOK(response){
     scrollLast();
 }
 
+function showUsers(){
+    const userPanel = document.querySelector(".user_list_container");
+    userPanel.classList.remove("hidden");
+    getUsers();
+}
+
+function hideUsers(){
+    const userPanel = document.querySelector(".user_list_container");
+    userPanel.classList.add("hidden");
+}
+
+function getUsers(){
+    const promisseUsers = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promisseUsers.then(promisseUsersOK);
+    promisseUsers.catch(promisseError)
+    setInterval(() => {
+        const promisseUsers = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+        promisseUsers.then(promisseUsersOK);
+        promisseUsers.catch(promisseError)
+    }, 1000000);
+}
+
+function promisseUsersOK(responseUsers){
+    users = responseUsers.data;
+    renderUsers();
+}
+
+function renderUsers(){
+    const userList = document.querySelector('.chat_users')
+    userList.innerHTML = '';
+    userList.innerHTML += `
+    <div onclick="selectUser(this)" class="chat_user_container">
+        <img src="./assets/people.png">
+        <h1 class="user_name">Todos</h1>
+        <img class="checkmark" src="./assets/checkmark.png">
+    </div>    
+    `
+    for (let i = 0; i < users.length; i++){
+        let user = users[i];
+        userList.innerHTML += `
+        <div onclick="selectUser(this)" class="chat_user_container">
+            <img src="./assets/person-circle.png">
+            <h1 class="user_name">${user.name}</h1>
+            <img class="checkmark" src="./assets/checkmark.png">
+        </div>    
+        `
+    }
+}
+
+function selectUser(user){
+    const selected_user = document.querySelector(".selected_user");
+
+    if (selected_user !== null){
+        selected_user.classList.remove("selected_user")
+    }
+    user.classList.add("selected_user"); 
+    selectedName = document.querySelector(".selected_user>.user_name").innerHTML;  
+}
+
+function selectMessage(message){
+    const selected_message = document.querySelector(".selected_message");
+
+    if (selected_message !== null){
+        selected_message.classList.remove("selected_message")
+    }
+    message.classList.add("selected_message"); 
+    let messageType = document.querySelector(".selected_message>.message_visibility").innerHTML;
+    if (messageType === "Público"){
+        type = "message";
+        spanType = "publicamente"
+    }else if (messageType === "Reservadamente"){
+        type = "private_message"
+        spanType = "reservadamente"
+    }
+}
+
+function userTypeMessage(){
+    let targetUser = document.querySelector(".selected_user>.user_name").innerHTML
+    let spanType = document.querySelector(".selected_message>.message_visibility").innerHTML
+    let messageSpan = document.querySelector(".span_message").innerHTML
+    if (selectedName !== "" || type !== ""){
+        messageSpan = ''
+        messageSpan = `<span>Enviando para ${targetUser} (${spanType})</span>`
+    }
+}
 
 function renderMessages(){
     messageList.innerHTML = '';
@@ -88,7 +175,7 @@ function renderMessages(){
             </div>
             `
         }else if(message.type === "private_message"){
-            if (message.to === userName){
+            if (message.to === userName || message.from === userName){
                 messageList.innerHTML += 
                 `<div class="private_message">
                     <p class="message">
@@ -105,10 +192,9 @@ function renderMessages(){
         }
     }
 
-
 function checkNew(response){
     tempArray = response.data
-    if (arrayEquals(messages, tempArray) == true){
+    if (arrayEquals(messages, tempArray) === true){
         return;
     }else{
         messages = tempArray
@@ -128,14 +214,19 @@ function scrollLast(){
     messageList.lastElementChild.scrollIntoView()
 }
 
-
 function sendMessage(){
-    const message = document.querySelector("input_message").value;
+    const message = document.querySelector(".input_message").value;
+    if (selectedName === ""){
+        selectedName = "Todos"
+    }
+    if (type === ""){
+        type = "message"
+    }
     const msg ={
         from: userName,
-        to: "Todos",
+        to: selectedName,
         text: message,
-        type: "message" // ou "private_message" para o bônus
+        type: type
     };
     const promisseMessage = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', msg);
     promisseMessage.then(promisseMessageOK)
@@ -144,7 +235,7 @@ function sendMessage(){
 
 function promisseMessageOK(){
     getMessage();
-    document.querySelector("input").value = ""
+    document.querySelector(".input_message").value = ""
 }
 
 function promisseMessageError(){
@@ -152,7 +243,7 @@ function promisseMessageError(){
 }   
 
 function sendEnter(){
-const input = document.querySelector("input")
+const input = document.querySelector(".input_message")
 input.addEventListener("keypress", function(event){
     if (event.key === "Enter"){
         document.querySelector(".plane").click();
