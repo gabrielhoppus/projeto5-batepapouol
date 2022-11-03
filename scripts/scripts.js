@@ -94,7 +94,7 @@ function renderMessages(){
         const message = messages[i];        
         if(message.type === "status"){
             messageList.innerHTML += `
-            <div data-test="message class="status_message">
+            <div data-test="message" class="status_message">
                 <p class="message">
                     <span class="time">(${message.time})</span>
                     <strong class="from">${message.from}</strong>
@@ -104,7 +104,7 @@ function renderMessages(){
             `;
         }else if (message.type === "message"){
             messageList.innerHTML += `
-            <div data-test="message class="public_message">
+            <div data-test="message" class="public_message">
                 <p class="message">
                     <span class="time">(${message.time})</span>
                     <strong class="from">${message.from}</strong>
@@ -117,7 +117,7 @@ function renderMessages(){
         }else if(message.type === "private_message"){
             if (message.to === userName || message.from === userName){
                 messageList.innerHTML += 
-                `<div data-test="message class="private_message">
+                `<div data-test="message" class="private_message">
                     <p class="message">
                         <span class="time">(${message.time})</span>
                         <strong class="from">${message.from}</strong>
