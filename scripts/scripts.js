@@ -94,7 +94,7 @@ function renderMessages(){
         const message = messages[i];        
         if(message.type === "status"){
             messageList.innerHTML += `
-            <div class="status_message">
+            <div data-test="message class="status_message">
                 <p class="message">
                     <span class="time">(${message.time})</span>
                     <strong class="from">${message.from}</strong>
@@ -104,7 +104,7 @@ function renderMessages(){
             `;
         }else if (message.type === "message"){
             messageList.innerHTML += `
-            <div class="public_message">
+            <div data-test="message class="public_message">
                 <p class="message">
                     <span class="time">(${message.time})</span>
                     <strong class="from">${message.from}</strong>
@@ -117,7 +117,7 @@ function renderMessages(){
         }else if(message.type === "private_message"){
             if (message.to === userName || message.from === userName){
                 messageList.innerHTML += 
-                `<div class="private_message">
+                `<div data-test="message class="private_message">
                     <p class="message">
                         <span class="time">(${message.time})</span>
                         <strong class="from">${message.from}</strong>
@@ -234,19 +234,19 @@ function renderUsers(){
     const userList = document.querySelector('.chat_users');
     userList.innerHTML = '';
     userList.innerHTML += `
-    <div onclick="selectUser(this)" class="chat_user_container">
+    <div data-test="all" onclick="selectUser(this)" class="chat_user_container">
         <img src="./assets/people.png">
         <h1 class="user_name">Todos</h1>
-        <img class="checkmark" src="./assets/checkmark.png">
+        <img data-test="check" class="checkmark" src="./assets/checkmark.png">
     </div>    
     `;
     for (let i = 0; i < users.length; i++){
         const user = users[i];
         userList.innerHTML += `
-        <div onclick="selectUser(this)" class="chat_user_container">
+        <div data-test="participant" onclick="selectUser(this)" class="chat_user_container">
             <img src="./assets/person-circle.png">
             <h1 class="user_name">${user.name}</h1>
-            <img class="checkmark" src="./assets/checkmark.png">
+            <img data-test="check" class="checkmark" src="./assets/checkmark.png">
         </div>    
         `;
     }
